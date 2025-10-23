@@ -1036,7 +1036,7 @@ async function fetchActivePromos() {
     if (res.ok) {
       state.activePromos = await res.json();
       console.log('Active promos loaded:', state.activePromos.length, state.activePromos);
-      updateNotificationBadge();
+      updateOffersNavVisibility();
       
       // Auto-load offers section if it's currently visible
       const offersSection = document.getElementById('section-offers');
@@ -1052,18 +1052,17 @@ async function fetchActivePromos() {
   }
 }
 
-// Update notification badge count
-function updateNotificationBadge() {
-  console.log('Updating notification badge, active promos:', state.activePromos.length);
-  const badge = document.getElementById('notification-badge');
+// Update offers nav visibility
+function updateOffersNavVisibility() {
+  console.log('Updating offers nav visibility');
   const offersNav = document.getElementById('offers-nav');
   
-  if (badge) badge.textContent = state.activePromos.length;
-  
-  // Show/hide offers nav based on login status and promos
+  // Show/hide offers nav based on login status
   if (offersNav && state.user) {
     offersNav.style.display = 'flex';
-    console.log('Badge updated to show:', state.activePromos.length, 'promos');
+    console.log('Offers nav now visible for logged-in user');
+  } else if (offersNav) {
+    offersNav.style.display = 'none';
   }
 }
 

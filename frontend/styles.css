@@ -110,19 +110,6 @@ body {
 .offers-bell {
   font-size: 1.1rem;
 }
-.notification-badge {
-  background: #ff3333;
-  color: white;
-  border-radius: 50%;
-  min-width: 18px;
-  height: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-  font-weight: 600;
-  margin-left: 2px;
-}
 
 /* Responsive navigation adjustments */
 @media (max-width: 768px) {
@@ -506,11 +493,6 @@ label{ font-weight:600; display:block; margin-top:8px }
     font-size: 0.55rem !important;
   }
   .offers-bell { font-size: 0.6rem !important; }
-  .notification-badge {
-    min-width: 12px !important;
-    height: 12px !important;
-    font-size: 0.5rem !important;
-  }
 }
 
 @media (max-width: 800px) {
