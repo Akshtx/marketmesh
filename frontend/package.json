@@ -1,0 +1,18 @@
+{
+  "name": "marketmesh-frontend",
+  "version": "1.0.0",
+  "description": "MarketMesh Frontend - Static HTML/CSS/JS Application",
+  "main": "index.html",
+  "scripts": {
+    "start": "http-server . -p 6300 -c-1 --cors",
+    "dev": "http-server . -p 6300 -c-1 --cors",
+    "build": "echo 'No build step needed for static files'",
+    "serve": "npm start"
+  },
+  "keywords": ["marketplace", "ecommerce", "frontend", "static"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

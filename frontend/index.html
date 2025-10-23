@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>MarketMesh</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* 🌈 Stylish Moving Offers Bar */
+    .offers-bar {
+      background: linear-gradient(90deg, #ff5f6d, #ffc371);
+      color: rgb(246, 236, 236);
+      padding: 12px 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      overflow: hidden;
+      position: relative;
+      margin-top: 220px;
+    }
+    .offers-track {
+      display: inline-block;
+      white-space: nowrap;
+      animation: moveText 18s linear infinite;
+    }
+    @keyframes moveText {
+      from { transform: translateX(100%); }
+      to { transform: translateX(-100%); }
+    }
+    .offers-track span {
+      margin: 0 40px;
+    }
+
+    /* Home Product Boxes */
+    .home-products {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+      flex-wrap: wrap;
+      gap: 30px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 20px;
+    }
+    .product-box {
+      border: 1px solid #ddd;
+      padding: 20px;
+      text-align: center;
+      width: 300px;
+      min-height: 320px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      background: #fff;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .product-box img {
+      width: 100%;
+      height: auto;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    .product-box h3 {
+      margin: 0 0 8px 0;
+      font-size: 1.3rem;
+      color: #333;
+      font-weight: 600;
+    }
+    .product-box p {
+      margin: 0 0 20px 0;
+      color: #666;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      flex-grow: 1;
+    }
+    .product-box .btn-primary {
+      margin-top: auto;
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      border-radius: 8px;
+    }
+    .product-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    @media (max-width: 1000px) {
+      .product-box { width: 280px; }
+    }
+    @media (max-width: 900px) {
+      .home-products { gap: 20px; }
+      .product-box { width: 260px; }
+    }
+    @media (max-width: 600px) {
+      .product-box { width: 100%; max-width: 300px; }
+      .home-products { gap: 20px; }
+    }
+
+    @media (max-width: 900px) {
+      .product-box { width: 45%; }
+    }
+    @media (max-width: 600px) {
+      .product-box { width: 100%; }
+    }
+
+    /* Order History Styles */
+    .order-item {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      padding: 15px;
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+    .order-id {
+      font-weight: bold;
+      color: #007bff;
+      font-size: 1.1em;
+    }
+    .order-date {
+      color: #666;
+      font-size: 0.9em;
+    }
+    .order-total {
+      font-weight: bold;
+      color: #28a745;
+      font-size: 1.2em;
+    }
+    .order-status {
+      background: #28a745;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.8em;
+      text-transform: uppercase;
+    }
+    .order-items {
+      color: #666;
+      font-size: 0.9em;
+      margin-top: 8px;
+    }
+    .loading {
+      text-align: center;
+      color: #666;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">🛍️ Market<span>Mesh</span></div>
+    <nav class="nav-links">
+      <a href="#" id="nav-home" class="nav-link active">Home</a>
+      <a href="#" id="nav-shop" class="nav-link">Shop</a>
+      <a href="#" id="nav-profile" class="nav-link" style="display:none">Profile</a>
+      
+      <!-- Combined Offers with Bell -->
+      <div class="offers-nav" id="offers-nav" style="display:none" title="Active Offers">
+        <span class="offers-text">Offers</span>
+        <span class="offers-bell">🔔</span>
+        <span class="notification-badge" id="notification-badge">0</span>
+      </div>
+      
+      <a href="#" id="nav-login" class="nav-link">Login</a>
+      <a href="#" id="nav-register" class="nav-link">Register</a>
+      <button id="btn-logout" class="btn-primary" style="display:none">Logout</button>
+      <button id="btn-cart" class="btn-outline">Cart (<span id="cart-count">0</span>)</button>
+    </nav>
+  </header>
+
+  <!-- Promo dropdown removed - using dedicated section instead -->
+
+  <main id="main">
+    <!-- Home / Hero -->
+    <section class="hero" id="section-home">
+      <div class="hero-content">
+        <br><br><br><br><br><br>
+        <h1>Discover Premium Products</h1>
+        <p>Shop electronics, fashion, home essentials, and more — all in one place.</p>
+        <br>
+        <button class="btn-primary" id="start-shop">Start Shopping</button>
+
+        <!-- 🌟 Home Product Boxes -->
+        <div class="home-products">
+          <div class="product-box">
+            <img src="images/Wireless Headphones.webp" alt="Electronics">
+            <h3>Electronics</h3>
+            <p>Headphones, Speakers, Gaming Gear</p>
+            <button class="btn-primary">SHOP ELECTRONICS</button>
+          </div>
+          <div class="product-box">
+            <img src="images/Smart LED Bulb.webp" alt="Home Appliances">
+            <h3>Home Appliances</h3>
+            <p>Smart Bulbs, Chargers, Home Tech</p>
+            <button class="btn-primary">SHOP HOME</button>
+          </div>
+          <div class="product-box">
+            <img src="images/CAPITAL IDEAS.webp" alt="Books">
+            <h3>Books</h3>
+            <p>Business Strategy, Learning Materials</p>
+            <button class="btn-primary">SHOP BOOKS</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🏷️ Offers & Sales Moving Line -->
+    <section class="offers-bar">
+      <div class="offers-track">
+        <span>🔥 Mega Electronics Sale — Up to 60% OFF on Laptops & Mobiles!</span>
+        <span>🎉 Festive Offer: Buy 1 Get 1 Free on Fashion Apparel!</span>
+        <span>🛋️ Home Essentials at Half Price — Limited Time!</span>
+        <span>🚚 Free Shipping on Orders Above ₹999!</span>
+        <span>💳 10% Cashback with MarketMesh Pay!</span>
+      </div>
+    </section>
+
+    <!-- Shop -->
+    <section class="container" id="section-shop" style="display:none">
+      <h2 class="section-title">Featured Products</h2>
+      <div class="grid" id="products"></div>
+    </section>
+
+    <!-- Login -->
+    <section class="container" id="section-login" style="display:none;max-width:420px">
+      <h2>Login</h2>
+      <form id="form-login">
+        <label>Email</label>
+        <input type="email" id="login-email" required>
+        <label>Password</label>
+        <input type="password" id="login-password" required>
+        <button class="btn-primary" type="submit">Login</button>
+        <div id="login-msg" class="form-msg"></div>
+      </form>
+    </section>
+
+    <!-- Register -->
+    <section class="container" id="section-register" style="display:none;max-width:420px">
+      <h2>Register</h2>
+      <form id="form-register">
+        <label>Name</label>
+        <input id="reg-name" required>
+        <label>Email</label>
+        <input type="email" id="reg-email" required>
+        <label>Password</label>
+        <input type="password" id="reg-password" required>
+        <button class="btn-primary" type="submit">Register</button>
+        <div id="reg-msg" class="form-msg"></div>
+      </form>
+    </section>
+
+    <!-- Offers Section -->
+    <section class="container" id="section-offers" style="display:none">
+      <h2>🎉 Active Offers & Promotions</h2>
+      <p style="margin-bottom: 24px; color: #666;">Save money with these amazing discount codes!</p>
+            <div id="offers-content" class="content-section">
+        <div class="section-header">
+          <h2>🎯 Active Promotions</h2>
+          <p class="section-subtitle">Save more with these limited-time offers</p>
+          <button onclick="loadOffersSection()" style="background: #ff7a00; color: white; border: none; padding: 10px 20px; border-radius: 6px; margin: 10px 0; cursor: pointer;">
+            🔄 Test Load Offers
+          </button>
+        </div>
+        
+        <div id="active-promos-list">
+          <!-- Promo cards will be dynamically added here -->
+        </div>
+        
+        <div id="no-promos-message" style="display: none; text-align: center; color: #666; margin-top: 40px;">
+          <p>No active promotions at the moment. Check back later!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Profile Section -->
+    <section class="container" id="section-profile" style="display:none">
+      <h2>My Profile</h2>
+      <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+          <div>
+            <strong>Name:</strong> <span id="profile-name">Loading...</span>
+          </div>
+          <div>
+            <strong>Email:</strong> <span id="profile-email">Loading...</span>
+          </div>
+          <div>
+            <strong>Phone:</strong>
+            <input type="tel" id="profile-phone-input" placeholder="Enter phone number" style="width: 100%; padding: 6px; margin-top: 4px; border-radius: 6px; border: 1px solid #ddd;">
+          </div>
+          <div>
+            <strong>Address:</strong>
+            <textarea id="profile-address-input" placeholder="Enter address" style="width: 100%; padding: 6px; margin-top: 4px; border-radius: 6px; border: 1px solid #ddd; min-height: 60px; resize: vertical;"></textarea>
+          </div>
+          <div style="grid-column: span 2;">
+            <strong>Member Since:</strong> <span id="profile-date">Loading...</span>
+          </div>
+          <div style="grid-column: span 2;">
+            <button id="save-profile-btn" class="btn-primary" style="width: 100%; padding: 10px;">Save Changes</button>
+            <div id="profile-msg" style="margin-top: 10px; color: green; font-weight: 600;"></div>
+          </div>
+        </div>
+      </div>
+      
+      <h3>Order History</h3>
+      <div id="order-history">
+        <p class="loading">Loading orders...</p>
+      </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="modal" style="display:none">
+      <div class="modal-content">
+        <h3>Your Cart</h3>
+        <div id="cart-items"></div>
+        
+        <!-- Promo Code Section -->
+        <div class="promo-input-section">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <label style="margin:0">Have a promo code?</label>
+            <a href="#" id="browse-promos-link" class="browse-promos-link">Browse More Codes</a>
+          </div>
+          <div id="promo-applied-display" style="display:none"></div>
+          <div id="promo-input-area">
+            <div class="promo-input-wrapper">
+              <input type="text" id="promo-code-input" placeholder="Enter promo code" style="text-transform:uppercase" />
+              <button id="apply-promo-btn" class="btn-primary">Apply</button>
+            </div>
+            <div id="promo-message" class="promo-message"></div>
+          </div>
+        </div>
+        
+        <div style="margin-top:12px">
+          <div style="display:flex; justify-content:space-between; margin-bottom:8px">
+            <span>Subtotal:</span>
+            <span>₹<span id="cart-subtotal">0</span></span>
+          </div>
+          <div id="discount-row" style="display:none; justify-content:space-between; margin-bottom:8px; color:#28a745; font-weight:600">
+            <span>Discount (<span id="discount-percent"></span>):</span>
+            <span>-₹<span id="cart-discount">0</span></span>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:1.2rem; font-weight:700">
+            <strong>Total:</strong>
+            <strong>₹<span id="cart-total">0</span></strong>
+          </div>
+        </div>
+        
+        <div style="margin-top:12px">
+          <button id="checkout-btn" class="btn-primary">Place Order</button>
+          <button id="close-cart" class="btn-outline">Close</button>
+        </div>
+        <div id="order-msg" style="margin-top:10px"></div>
+      </div>
+    </div>
+
+    <!-- 💳 Payment Section -->
+    <section class="container" id="section-payment" style="display:none">
+      <div>
+        <h2>Payment & Delivery</h2>
+        <div id="payment-summary"></div>
+        <hr>
+        <label>Delivery Address</label>
+        <textarea id="ship-address" placeholder="Enter full address" required></textarea>
+        <h4>Choose Payment Method:</h4>
+        <label><input type="radio" name="pay-method" value="UPI"> UPI</label><br>
+        <label><input type="radio" name="pay-method" value="Card"> Credit/Debit Card</label><br>
+        <label><input type="radio" name="pay-method" value="COD"> Cash on Delivery</label><br><br>
+        <div id="payment-details"></div>
+        <button class="btn-primary" onclick="submitPayment()">Pay Now</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div>
+      <h3>MarketMesh</h3>
+      <p>Smart Shopping, Simplified.</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="tel:9390067568">Support: 9390067568</a></li>
+        <li><a href="mailto:23eg107d19@anurag.edu.in">Email: 23eg107d19@anurag.edu.in</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

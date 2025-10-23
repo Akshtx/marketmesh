@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Test</title>
+</head>
+<body>
+    <h1>Backend API Test</h1>
+    <button onclick="testAPI()">Test Backend Connection</button>
+    <pre id="result"></pre>
+    
+    <script>
+    async function testAPI() {
+        const result = document.getElementById('result');
+        result.textContent = 'Testing...';
+        
+        try {
+            // Test 1: Root endpoint
+            const res1 = await fetch('http://localhost:3001/');
+            const data1 = await res1.json();
+            result.textContent = 'Root endpoint: ' + JSON.stringify(data1, null, 2) + '\n\n';
+            
+            // Test 2: Products endpoint
+            const res2 = await fetch('http://localhost:3001/api/products');
+            const data2 = await res2.json();
+            result.textContent += `Products endpoint: Got ${data2.length} products\n\n`;
+            
+            // Test 3: Check if user is logged in
+            const token = localStorage.getItem('mm_token');
+            const user = localStorage.getItem('mm_user');
+            result.textContent += `Token: ${token ? 'EXISTS' : 'NOT FOUND'}\n`;
+            result.textContent += `User: ${user || 'NOT FOUND'}\n`;
+            
+            result.textContent += '\n✅ All tests passed!';
+        } catch (err) {
+            result.textContent = '❌ Error: ' + err.message;
+            console.error('Test error:', err);
+        }
+    }
+    </script>
+</body>
+</html>
