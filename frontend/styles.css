@@ -15,40 +15,44 @@ body {
   color: var(--text-main);
 }
 
-/* Navbar - Force single line layout */
+/* Navbar - ABSOLUTE SINGLE LINE GUARANTEE */
 .navbar {
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
-  padding: 6px 1% !important;
+  padding: 4px 0.5% !important;
   background: var(--bg-dark);
   color: var(--text-light);
   position: sticky;
   top: 0;
   z-index: 20;
   box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-  min-height: 45px;
+  min-height: 40px;
+  max-height: 40px !important;
   flex-wrap: nowrap !important;
-  width: 100% !important;
+  width: 100vw !important;
   overflow: hidden !important;
+  box-sizing: border-box !important;
 }
 .logo { 
-  font-size: 1rem !important; 
+  font-size: 0.9rem !important; 
   font-weight: 700; 
   flex-shrink: 0 !important;
-  margin-right: 10px !important;
-  max-width: 150px !important;
+  margin-right: 8px !important;
+  max-width: 120px !important;
   overflow: hidden;
+  white-space: nowrap !important;
 }
 .logo span { color: var(--accent); }
 .nav-links { 
   display: flex !important; 
   align-items: center !important; 
-  gap: 4px !important; 
+  gap: 2px !important; 
   flex-wrap: nowrap !important;
   white-space: nowrap !important;
   flex-shrink: 0 !important;
-  overflow: visible !important;
+  overflow: hidden !important;
+  max-width: calc(100vw - 140px) !important;
 }
 
 /* small gradient hint when nav is scrollable */
@@ -65,13 +69,15 @@ body {
 .nav-link { 
   color: var(--text-light) !important; 
   text-decoration: none !important;
-  padding: 4px 6px !important;
-  border-radius: 4px;
+  padding: 2px 4px !important;
+  border-radius: 3px;
   transition: all 0.2s;
   white-space: nowrap !important;
   flex-shrink: 0 !important;
-  font-size: 0.85rem !important;
+  font-size: 0.7rem !important;
   display: inline-block !important;
+  min-width: auto !important;
+  max-width: none !important;
 }
 .nav-link:hover { 
   color: var(--accent) !important;
@@ -84,13 +90,14 @@ body {
   color: var(--text-light) !important;
   display: flex !important;
   align-items: center !important;
-  gap: 2px !important;
-  padding: 4px 6px !important;
-  border-radius: 4px;
+  gap: 1px !important;
+  padding: 2px 4px !important;
+  border-radius: 3px;
   transition: all 0.2s;
   white-space: nowrap !important;
   flex-shrink: 0 !important;
-  font-size: 0.85rem !important;
+  font-size: 0.7rem !important;
+  min-width: auto !important;
 }
 .offers-nav:hover {
   color: var(--accent);
@@ -324,33 +331,36 @@ body {
   background: var(--accent) !important; 
   border: none !important; 
   color: white !important; 
-  padding: 3px 5px !important; 
-  border-radius: 4px !important; 
+  padding: 2px 3px !important; 
+  border-radius: 3px !important; 
   cursor: pointer !important; 
   font-weight: 600 !important; 
   flex-shrink: 0 !important;
-  font-size: 0.75rem !important;
+  font-size: 0.65rem !important;
   white-space: nowrap !important;
+  min-width: auto !important;
 }
 .btn-outline { 
   background: none !important; 
   border: 1px solid var(--accent) !important; 
-  padding: 3px 5px !important; 
-  border-radius: 4px !important; 
+  padding: 2px 3px !important; 
+  border-radius: 3px !important; 
   cursor: pointer !important; 
   color: var(--accent) !important; 
   flex-shrink: 0 !important;
-  font-size: 0.75rem !important;
+  font-size: 0.65rem !important;
   white-space: nowrap !important;
+  min-width: auto !important;
 }
 
-/* Make cart button compact */
+/* Make cart button ultra compact */
 #btn-cart { 
-  padding: 3px 5px !important; 
-  border-radius: 4px !important; 
+  padding: 2px 3px !important; 
+  border-radius: 3px !important; 
   font-weight: 600 !important; 
   flex-shrink: 0 !important; 
-  font-size: 0.75rem !important;
+  font-size: 0.65rem !important;
+  min-width: auto !important;
 }
 
 /* Hero */
@@ -458,45 +468,66 @@ label{ font-weight:600; display:block; margin-top:8px }
   .hero h1{ font-size:1.6rem }
 }
 
-/* FORCE NAVIGATION TO STAY ON ONE LINE - OVERRIDE ALL OTHER STYLES */
-.navbar * {
+/* ABSOLUTE FORCE: NAVIGATION MUST STAY ON ONE LINE */
+.navbar, .navbar *, .nav-links, .nav-links * {
   flex-shrink: 0 !important;
   white-space: nowrap !important;
+  flex-wrap: nowrap !important;
+  overflow: visible !important;
 }
 
-.navbar .nav-links * {
-  display: inline-flex !important;
+.navbar .nav-links {
+  display: flex !important;
+  flex-direction: row !important;
   flex-wrap: nowrap !important;
 }
 
-/* Ultra compact navigation for tight spaces */
-@media (max-width: 1200px) {
-  .navbar {
-    padding: 4px 1% !important;
-  }
-  
-  .logo {
-    font-size: 0.9rem !important;
-    margin-right: 8px !important;
-  }
-  
-  .nav-links {
-    gap: 2px !important;
-  }
-  
+.navbar .nav-links > * {
+  display: inline-flex !important;
+  flex-shrink: 0 !important;
+}
+
+/* Progressive size reduction for ANY screen size */
+@media (max-width: 1400px) {
+  .navbar { padding: 3px 0.5% !important; }
+  .logo { font-size: 0.8rem !important; margin-right: 6px !important; }
+  .nav-links { gap: 1px !important; }
   .nav-link, .offers-nav, .btn-primary, .btn-outline, #btn-cart {
-    padding: 2px 4px !important;
-    font-size: 0.7rem !important;
-    border-radius: 3px !important;
-  }
-  
-  .offers-bell {
-    font-size: 0.8rem !important;
-  }
-  
-  .notification-badge {
-    min-width: 14px !important;
-    height: 14px !important;
+    padding: 1px 2px !important;
     font-size: 0.6rem !important;
+    border-radius: 2px !important;
+  }
+}
+
+@media (max-width: 1000px) {
+  .logo { font-size: 0.7rem !important; margin-right: 4px !important; }
+  .nav-link, .offers-nav, .btn-primary, .btn-outline, #btn-cart {
+    padding: 1px 1px !important;
+    font-size: 0.55rem !important;
+  }
+  .offers-bell { font-size: 0.6rem !important; }
+  .notification-badge {
+    min-width: 12px !important;
+    height: 12px !important;
+    font-size: 0.5rem !important;
+  }
+}
+
+@media (max-width: 800px) {
+  .logo { font-size: 0.6rem !important; }
+  .nav-link, .offers-nav, .btn-primary, .btn-outline, #btn-cart {
+    font-size: 0.5rem !important;
+  }
+}
+
+/* Emergency ultra-tiny mode for very small screens */
+@media (max-width: 600px) {
+  .navbar { min-height: 35px !important; max-height: 35px !important; }
+  .logo { font-size: 0.55rem !important; margin-right: 2px !important; }
+  .nav-links { gap: 0px !important; }
+  .nav-link, .offers-nav, .btn-primary, .btn-outline, #btn-cart {
+    padding: 1px !important;
+    font-size: 0.45rem !important;
+    border-radius: 1px !important;
   }
 }
