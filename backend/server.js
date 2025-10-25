@@ -33,5 +33,5 @@ app.use('/api/promos', promoRoutes);
 
 app.get('/', (req,res)=> res.json({ ok: true, msg: 'MarketMesh API', endpoints: { auth: '/api/auth', products: '/api/products', orders: '/api/orders' } }));
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001; // Changed default from 5000 to 3001 to match frontend expectations
 app.listen(PORT, ()=> console.log('Server running on', PORT));
