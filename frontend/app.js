@@ -168,18 +168,6 @@ document.addEventListener('DOMContentLoaded', function() {
   if (navRegister) navRegister.addEventListener('click', (e) => { e.preventDefault(); showSection('section-register'); });
   if (startShop) startShop.addEventListener('click', () => { showSection('section-shop'); fetchProducts(); });
 
-  // Logout
-  const btnLogout = document.getElementById('btn-logout');
-  if (btnLogout) {
-    btnLogout.addEventListener('click', () => {
-      state.user = null; state.token = null;
-      localStorage.removeItem('mm_token'); localStorage.removeItem('mm_user');
-      updateAuthUI();
-      showSection('section-home');
-      alert('Logged out successfully');
-    });
-  }
-
   // Cart modal handlers
   const btnCart = document.getElementById('btn-cart');
   const closeCartBtn = document.getElementById('close-cart');
@@ -749,15 +737,36 @@ addNavEventListener('nav-register', (e) => { e.preventDefault(); showSection('se
 addNavEventListener('start-shop', () => { showSection('section-shop'); fetchProducts(); });
 
 // Logout
+// Centralized logout helper
+function logout() {
+  console.log('Logging out user...');
+  // Clear front-end state
+  state.user = null;
+  state.token = null;
+  state.cart = {};
+  state.appliedPromo = null;
+
+  // Remove persisted auth
+  try {
+    localStorage.removeItem('mm_token');
+    localStorage.removeItem('mm_user');
+  } catch (e) {
+    console.warn('LocalStorage clear failed during logout:', e);
+  }
+
+  // Update UI and hide protected sections
+  updateAuthUI();
+  try { updateOffersNavVisibility(); } catch (e) {}
+  showSection('section-home');
+
+  // Light-weight feedback
+  alert('Logged out successfully');
+}
+
+// Attach logout handler (safe if element missing)
 const btnLogout = document.getElementById('btn-logout');
 if (btnLogout) {
-  btnLogout.addEventListener('click', ()=>{
-    state.user = null; state.token = null;
-    localStorage.removeItem('mm_token'); localStorage.removeItem('mm_user');
-    updateAuthUI();
-    showSection('section-home');
-    alert('Logged out successfully');
-  });
+  btnLogout.addEventListener('click', (e) => { e.preventDefault(); logout(); });
 }
 
 // Forms - with safety checks
