@@ -52,6 +52,8 @@ function loadAuthFromStorage(){
 }
 
 function updateAuthUI(){
+  console.log('🔄 updateAuthUI called, user state:', state.user ? 'LOGGED IN' : 'NOT LOGGED IN');
+  
   const btnLogout = document.getElementById('btn-logout');
   const navProfile = document.getElementById('nav-profile');
   const offersNav = document.getElementById('offers-nav');
@@ -59,12 +61,39 @@ function updateAuthUI(){
   const navRegister = document.getElementById('nav-register');
   const cartCount = document.getElementById('cart-count');
   
-  if (btnLogout) btnLogout.style.display = state.user ? 'inline-block' : 'none';
-  if (navProfile) navProfile.style.display = state.user ? 'inline-block' : 'none';
-  if (offersNav) offersNav.style.display = state.user ? 'flex' : 'none';
-  if (navLogin) navLogin.style.display = state.user ? 'none' : 'inline-block';
-  if (navRegister) navRegister.style.display = state.user ? 'none' : 'inline-block';
-  if (cartCount) cartCount.innerText = Object.values(state.cart).reduce((s,i)=>s+i.qty,0) || 0;
+  // When user IS logged in - show Profile, Logout, Offers; hide Login, Register
+  // When user is NOT logged in - show Login, Register; hide Profile, Logout, Offers
+  
+  if (btnLogout) {
+    btnLogout.style.display = state.user ? 'inline-block' : 'none';
+    console.log('Logout button:', state.user ? 'VISIBLE' : 'HIDDEN');
+  }
+  
+  if (navProfile) {
+    navProfile.style.display = state.user ? 'inline-block' : 'none';
+    console.log('Profile link:', state.user ? 'VISIBLE' : 'HIDDEN');
+  }
+  
+  if (offersNav) {
+    offersNav.style.display = state.user ? 'flex' : 'none';
+    console.log('Offers nav:', state.user ? 'VISIBLE' : 'HIDDEN');
+  }
+  
+  if (navLogin) {
+    navLogin.style.display = state.user ? 'none' : 'inline-block';
+    console.log('Login link:', state.user ? 'HIDDEN' : 'VISIBLE');
+  }
+  
+  if (navRegister) {
+    navRegister.style.display = state.user ? 'none' : 'inline-block';
+    console.log('Register link:', state.user ? 'HIDDEN' : 'VISIBLE');
+  }
+  
+  if (cartCount) {
+    cartCount.innerText = Object.values(state.cart).reduce((s,i)=>s+i.qty,0) || 0;
+  }
+  
+  console.log('✅ updateAuthUI completed');
 }
 
 async function fetchProducts(){
