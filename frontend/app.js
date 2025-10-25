@@ -150,6 +150,17 @@ function escapeHtml(str){ return String(str).replace(/[&<>"']/g, s=>({ '&':'&amp
 
 // Helpers
 function showSection(id){
+  // Protected sections that require login
+  const protectedSections = ['section-payment', 'section-profile', 'section-offers'];
+  
+  // Check if trying to access protected section without login
+  if (protectedSections.includes(id) && !state.user) {
+    console.log('⚠️ Access denied to', id, '- user not logged in');
+    alert('Please login to access this page');
+    showSection('section-login');
+    return;
+  }
+  
   const sections = ['section-home','section-shop','section-login','section-register','section-payment','section-profile','section-offers'];
   sections.forEach(s => {
     const element = document.getElementById(s);
@@ -157,6 +168,8 @@ function showSection(id){
       element.style.display = (s === id) ? 'block' : 'none';
     }
   });
+  
+  console.log('✅ Showing section:', id);
 }
 
 // Initialize everything when DOM is loaded
