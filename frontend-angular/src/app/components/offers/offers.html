@@ -1,0 +1,24 @@
+<section class="container">
+  <h2 class="page-title">🎉 Active Offers & Promotions</h2>
+  <p class="page-subtitle">Save money with these amazing discount codes!</p>
+  
+  <div class="offers-grid">
+    <div *ngFor="let promo of promos" class="promo-card">
+      <div class="promo-card-header">
+        <div>
+          <span class="promo-code">{{ promo.code }}</span>
+          <span class="promo-discount">{{ promo.discountPercent }}% OFF</span>
+        </div>
+      </div>
+      <div class="promo-description">{{ promo.description }}</div>
+      <div class="promo-card-footer">
+        <div class="promo-expiry">⏰ {{ getExpiryText(promo.daysLeft) }}</div>
+        <button class="promo-copy-btn" 
+                [class.copied]="copiedCode === promo.code"
+                (click)="copyToClipboard(promo.code)">
+          {{ copiedCode === promo.code ? '✓ Copied!' : 'Copy Code' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

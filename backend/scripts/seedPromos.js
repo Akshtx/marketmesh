@@ -25,6 +25,41 @@ const promos = [
     description: 'Flash sale! Get 15% off - Hurry, expires soon!',
     expiresAt: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000), // 1 day from now
     usageLimit: 25
+  },
+  {
+    code: 'MEGA20',
+    discountPercent: 20,
+    description: 'Mega deal! Save big with 20% discount on electronics',
+    expiresAt: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // 5 days from now
+    usageLimit: 75
+  },
+  {
+    code: 'NEWYEAR25',
+    discountPercent: 25,
+    description: 'New Year Special! Get 25% off on all categories',
+    expiresAt: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000), // 10 days from now
+    usageLimit: 200
+  },
+  {
+    code: 'SUPER30',
+    discountPercent: 30,
+    description: 'Super Saver! Massive 30% discount - Don\'t miss out!',
+    expiresAt: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000), // 2 days from now
+    usageLimit: 30
+  },
+  {
+    code: 'VIP40',
+    discountPercent: 40,
+    description: 'VIP Exclusive! Get 40% off on premium products',
+    expiresAt: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), // 14 days from now
+    usageLimit: 150
+  },
+  {
+    code: 'FESTIVE50',
+    discountPercent: 50,
+    description: 'Festive Bonanza! Unbelievable 50% off on selected items',
+    expiresAt: new Date(Date.now() + 4 * 24 * 60 * 60 * 1000), // 4 days from now
+    usageLimit: 100
   }
 ];
 

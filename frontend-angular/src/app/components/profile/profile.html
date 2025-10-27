@@ -1,0 +1,67 @@
+<section class="container">
+  <h2>My Profile</h2>
+  
+  <div *ngIf="user" class="profile-card">
+    <div class="profile-grid">
+      <div class="profile-field">
+        <strong>Name:</strong>
+        <span>{{ user.name }}</span>
+      </div>
+      <div class="profile-field">
+        <strong>Email:</strong>
+        <span>{{ user.email }}</span>
+      </div>
+      <div class="profile-field">
+        <strong>Phone:</strong>
+        <input type="tel" [(ngModel)]="phone" placeholder="Enter phone number">
+      </div>
+      <div class="profile-field full-width">
+        <strong>Address:</strong>
+        <textarea [(ngModel)]="address" placeholder="Enter address" rows="3"></textarea>
+      </div>
+      <div class="profile-field full-width">
+        <strong>Member Since:</strong>
+        <span>{{ getMemberSince() }}</span>
+      </div>
+      <div class="profile-field full-width">
+        <button class="btn-primary" (click)="saveProfile()">Save Changes</button>
+        <div *ngIf="saveMessage" 
+             class="save-message" 
+             [ngClass]="{'success': saveMessageType === 'success', 'error': saveMessageType === 'error'}">
+          {{ saveMessage }}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <h3 style="margin-top: 40px;">Order History</h3>
+  
+  <div *ngIf="loadingOrders" class="loading">Loading your orders...</div>
+  <div *ngIf="ordersError" class="error">{{ ordersError }}</div>
+  
+  <div *ngIf="!loadingOrders && !ordersError">
+    <div *ngIf="orders.length === 0" class="no-orders">
+      <p>No orders yet. <a routerLink="/shop">Start shopping!</a></p>
+    </div>
+    
+    <div *ngIf="orders.length > 0" class="orders-list">
+      <div *ngFor="let order of orders" class="order-item">
+        <div class="order-header">
+          <div>
+            <div class="order-id">Order #{{ order._id?.slice(-8) }}</div>
+            <div class="order-date">{{ formatDate(order.createdAt) }}</div>
+          </div>
+          <div>
+            <div class="order-total">{{ formatCurrency(order.total) }}</div>
+            <span class="order-status">{{ order.status || 'Completed' }}</span>
+          </div>
+        </div>
+        <div class="order-items">
+          <div *ngFor="let item of order.items">
+            {{ item.qty }}x {{ item.title }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

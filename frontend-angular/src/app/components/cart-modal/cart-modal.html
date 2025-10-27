@@ -1,0 +1,73 @@
+<div class="modal" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h3>Your Cart</h3>
+    
+    <div *ngIf="cartItems.length === 0" class="empty-cart">
+      <p>Your cart is empty</p>
+    </div>
+    
+    <div *ngIf="cartItems.length > 0">
+      <div class="cart-items">
+        <div *ngFor="let item of cartItems" class="cart-item">
+          <strong>{{ item.product.title }}</strong> x {{ item.qty }} — ₹{{ item.product.price * item.qty }}
+          <div class="cart-item-actions">
+            <button class="btn-outline btn-sm" (click)="decrementQty(item.product._id)">-</button>
+            <button class="btn-outline btn-sm" (click)="incrementQty(item.product._id)">+</button>
+            <button class="btn-outline btn-sm" (click)="removeItem(item.product._id)">Remove</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Promo Code Section -->
+      <div class="promo-input-section">
+        <div class="promo-header">
+          <label>Have a promo code?</label>
+          <a href="javascript:void(0)" (click)="browsePromos()" class="browse-promos-link">Browse More Codes</a>
+        </div>
+        
+        <div *ngIf="appliedPromo" class="promo-applied">
+          <span class="promo-applied-code">🎉 {{ appliedPromo.code }} applied ({{ appliedPromo.discountPercent }}% off)</span>
+          <span class="promo-remove" (click)="removePromoCode()">Remove</span>
+        </div>
+        
+        <div *ngIf="showPromoInput" class="promo-input-area">
+          <div class="promo-input-wrapper">
+            <input 
+              type="text" 
+              [(ngModel)]="promoCodeInput" 
+              placeholder="Enter promo code"
+              (keypress)="$event.key === 'Enter' && applyPromoCode()"
+              style="text-transform:uppercase">
+            <button class="btn-primary" (click)="applyPromoCode()">Apply</button>
+          </div>
+          <div *ngIf="promoMessage" 
+               class="promo-message" 
+               [ngClass]="{'success': promoMessageType === 'success', 'error': promoMessageType === 'error'}">
+            {{ promoMessage }}
+          </div>
+        </div>
+      </div>
+      
+      <!-- Cart Totals -->
+      <div class="cart-totals">
+        <div class="cart-total-row">
+          <span>Subtotal:</span>
+          <span>₹{{ subtotal.toFixed(2) }}</span>
+        </div>
+        <div *ngIf="discount > 0" class="cart-total-row discount-row">
+          <span>Discount ({{ appliedPromo?.discountPercent }}%):</span>
+          <span>-₹{{ discount.toFixed(2) }}</span>
+        </div>
+        <div class="cart-total-row total-row">
+          <strong>Total:</strong>
+          <strong>₹{{ total.toFixed(2) }}</strong>
+        </div>
+      </div>
+      
+      <div class="cart-actions">
+        <button class="btn-primary" (click)="placeOrder()">Place Order</button>
+        <button class="btn-outline" (click)="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<section class="hero">
+  <div class="hero-content">
+    <h1>Discover Premium Products</h1>
+    <p>Shop electronics, fashion, home essentials, and more — all in one place.</p>
+    <button class="btn-primary" (click)="goToShop()">Start Shopping</button>
+
+    <div class="home-products">
+      <div class="product-box">
+        <img src="assets/images/Wireless Headphones.webp" alt="Electronics" (error)="$any($event.target).src='https://via.placeholder.com/300x200?text=Electronics'">
+        <h3>Electronics</h3>
+        <p>Headphones, Speakers, Gaming Gear</p>
+        <button class="btn-primary" (click)="goToShop()">SHOP ELECTRONICS</button>
+      </div>
+      <div class="product-box">
+        <img src="assets/images/Smart LED Bulb.webp" alt="Home Appliances" (error)="$any($event.target).src='https://via.placeholder.com/300x200?text=Home+Appliances'">
+        <h3>Home Appliances</h3>
+        <p>Smart Bulbs, Chargers, Home Tech</p>
+        <button class="btn-primary" (click)="goToShop()">SHOP HOME</button>
+      </div>
+      <div class="product-box">
+        <img src="assets/images/CAPITAL IDEAS.webp" alt="Books" (error)="$any($event.target).src='https://via.placeholder.com/300x200?text=Books'">
+        <h3>Books</h3>
+        <p>Business Strategy, Learning Materials</p>
+        <button class="btn-primary" (click)="goToShop()">SHOP BOOKS</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="offers-bar">
+  <div class="offers-track">
+    <span>🔥 Mega Electronics Sale — Up to 60% OFF on Laptops & Mobiles!</span>
+    <span>🎉 Festive Offer: Buy 1 Get 1 Free on Fashion Apparel!</span>
+    <span>🛋️ Home Essentials at Half Price — Limited Time!</span>
+    <span>🚚 Free Shipping on Orders Above ₹999!</span>
+    <span>💳 10% Cashback with MarketMesh Pay!</span>
+  </div>
+</section>

@@ -1,0 +1,132 @@
+.hero { 
+  min-height: 60vh; 
+  background: linear-gradient(90deg,#121316,#1b1d22); 
+  color: white; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  text-align: center; 
+  padding: 100px 20px 40px;
+  margin-top: 0;
+}
+
+.hero h1{ 
+  font-size: 2.4rem; 
+  margin: 0 0 16px 0;
+}
+
+.hero p{ 
+  color: #ddd; 
+  margin: 0 0 24px 0;
+  font-size: 1.1rem;
+}
+
+.hero-content {
+  width: 100%;
+}
+
+.home-products {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  flex-wrap: wrap;
+  gap: 30px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px;
+}
+
+.product-box {
+  border: 1px solid #ddd;
+  padding: 20px;
+  text-align: center;
+  width: 300px;
+  min-height: 320px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background: #fff;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product-box img {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.product-box h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.3rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.product-box p {
+  margin: 0 0 20px 0;
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  flex-grow: 1;
+}
+
+.product-box .btn-primary {
+  margin-top: auto;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.product-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.offers-bar {
+  background: linear-gradient(90deg, #ff5f6d, #ffc371);
+  color: rgb(246, 236, 236);
+  padding: 12px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  overflow: hidden;
+  position: relative;
+  margin-top: 60px;
+}
+
+.offers-track {
+  display: inline-block;
+  white-space: nowrap;
+  animation: moveText 18s linear infinite;
+}
+
+@keyframes moveText {
+  from { transform: translateX(100%); }
+  to { transform: translateX(-100%); }
+}
+
+.offers-track span {
+  margin: 0 40px;
+}
+
+@media (max-width: 1000px) {
+  .product-box { width: 280px; }
+}
+
+@media (max-width: 900px) {
+  .home-products { gap: 20px; }
+  .product-box { width: 260px; }
+}
+
+@media (max-width: 600px) {
+  .product-box { width: 100%; max-width: 300px; }
+  .home-products { gap: 20px; }
+  .hero { height: 36vh; }
+  .hero h1 { font-size: 1.6rem; }
+}

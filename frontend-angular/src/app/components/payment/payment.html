@@ -1,0 +1,115 @@
+<section class="container payment-container">
+  <h2>Payment & Delivery</h2>
+  
+  <div *ngIf="order && !paymentComplete" class="payment-form">
+    <!-- Order Summary -->
+    <div class="payment-summary">
+      <h3>Order Summary</h3>
+      <div class="summary-field">
+        <strong>Order ID:</strong>
+        <span class="order-id-highlight">{{ order._id?.slice(-8) }}</span>
+      </div>
+      
+      <div class="order-items-summary">
+        <strong>Items:</strong>
+        <div *ngFor="let item of order.items" class="item-line">
+          {{ item.title }} x {{ item.qty }} - ₹{{ item.totalPrice }}
+        </div>
+      </div>
+      
+      <div class="summary-totals">
+        <div class="summary-row">
+          <span>Subtotal:</span>
+          <span>{{ formatCurrency(order.subtotal) }}</span>
+        </div>
+        <div *ngIf="order.discount > 0" class="summary-row discount">
+          <span>Discount ({{ order.promoCode?.code }} - {{ order.promoCode?.discountPercent }}%):</span>
+          <span>-{{ formatCurrency(order.discount) }}</span>
+        </div>
+        <div class="summary-row total">
+          <strong>Total:</strong>
+          <strong>{{ formatCurrency(order.total) }}</strong>
+        </div>
+      </div>
+    </div>
+    
+    <hr>
+    
+    <!-- Delivery Address -->
+    <div class="form-section">
+      <label>Delivery Address</label>
+      <textarea 
+        [(ngModel)]="address" 
+        placeholder="Enter full address including pin code"
+        rows="4"
+        required></textarea>
+    </div>
+    
+    <!-- Payment Method -->
+    <div class="form-section">
+      <h4>Choose Payment Method:</h4>
+      <div class="payment-methods">
+        <label class="payment-option">
+          <input type="radio" [(ngModel)]="paymentMethod" value="UPI" (change)="onPaymentMethodChange()">
+          <span>UPI</span>
+        </label>
+        <label class="payment-option">
+          <input type="radio" [(ngModel)]="paymentMethod" value="Card" (change)="onPaymentMethodChange()">
+          <span>Credit/Debit Card</span>
+        </label>
+        <label class="payment-option">
+          <input type="radio" [(ngModel)]="paymentMethod" value="COD" (change)="onPaymentMethodChange()">
+          <span>Cash on Delivery</span>
+        </label>
+      </div>
+    </div>
+    
+    <!-- Payment Details -->
+    <div *ngIf="showPaymentFields" class="payment-details">
+      <div *ngIf="paymentMethod === 'UPI'">
+        <label>UPI ID</label>
+        <input type="text" [(ngModel)]="upiId" placeholder="yourupi@bank" required>
+      </div>
+      
+      <div *ngIf="paymentMethod === 'Card'">
+        <label>Card Number</label>
+        <input type="text" [(ngModel)]="cardNumber" maxlength="16" placeholder="1234 5678 9012 3456" required>
+        
+        <div class="card-extra">
+          <div>
+            <label>Expiry</label>
+            <input type="text" [(ngModel)]="cardExpiry" maxlength="5" placeholder="MM/YY" required>
+          </div>
+          <div>
+            <label>CVV</label>
+            <input type="text" [(ngModel)]="cardCvv" maxlength="4" placeholder="123" required>
+          </div>
+        </div>
+      </div>
+      
+      <div *ngIf="paymentMethod === 'COD'" class="cod-note">
+        <p>✓ Pay when you receive your order</p>
+      </div>
+    </div>
+    
+    <button class="btn-primary btn-pay" (click)="submitPayment()">Pay Now</button>
+  </div>
+  
+  <!-- Payment Success -->
+  <div *ngIf="paymentComplete" class="payment-success">
+    <div class="success-icon">✅</div>
+    <h3>Order has been placed!</h3>
+    <div class="success-details">
+      <p><strong>Order ID:</strong> {{ order?._id }}</p>
+      <p><strong>Delivery to:</strong> {{ address }}</p>
+      <p><strong>Payment Method:</strong> {{ paymentMethod }}</p>
+      <p class="email-note">Details will be sent to your email</p>
+    </div>
+    <button class="btn-primary" (click)="goHome()">Go to Home</button>
+  </div>
+  
+  <div *ngIf="!order && !paymentComplete" class="no-order">
+    <p>No order found. Please place an order first.</p>
+    <button class="btn-primary" routerLink="/shop">Start Shopping</button>
+  </div>
+</section>

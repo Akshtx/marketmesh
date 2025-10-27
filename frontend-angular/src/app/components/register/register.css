@@ -1,0 +1,22 @@
+.register-container {
+  max-width: 420px;
+  margin: 60px auto;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: var(--text-main);
+}
+
+form {
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+button[type="submit"] {
+  width: 100%;
+  margin-top: 12px;
+}

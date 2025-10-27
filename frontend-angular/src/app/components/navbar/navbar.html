@@ -1,0 +1,16 @@
+<header class="navbar">
+  <div class="logo">🛍️ Market<span>Mesh</span></div>
+  <nav class="nav-links">
+    <a routerLink="/" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+    <a routerLink="/shop" class="nav-link" routerLinkActive="active">Shop</a>
+    <a *ngIf="isAuthenticated" routerLink="/profile" class="nav-link" routerLinkActive="active">Profile</a>
+    <a *ngIf="isAuthenticated" routerLink="/offers" class="nav-link offers-nav">
+      <span class="offers-text">Offers</span>
+      <span class="offers-bell">🔔</span>
+    </a>
+    <a *ngIf="!isAuthenticated" routerLink="/login" class="nav-link" routerLinkActive="active">Login</a>
+    <a *ngIf="!isAuthenticated" routerLink="/register" class="nav-link" routerLinkActive="active">Register</a>
+    <button *ngIf="isAuthenticated" (click)="logout()" class="btn-primary">Logout</button>
+    <button (click)="openCart()" class="btn-outline" id="btn-cart">Cart ({{cartCount}})</button>
+  </nav>
+</header>

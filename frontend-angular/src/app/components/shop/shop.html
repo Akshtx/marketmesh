@@ -1,0 +1,26 @@
+<section class="container">
+  <h2 class="section-title">Featured Products</h2>
+  
+  <div *ngIf="loading" class="loading">Loading products...</div>
+  <div *ngIf="error" class="error">
+    {{ error }}
+    <br><br>
+    <button class="btn-primary" (click)="loadProducts()">Retry</button>
+  </div>
+  
+  <div class="grid" *ngIf="!loading && !error">
+    <div class="card" *ngFor="let product of products">
+      <div class="img">
+        <img *ngIf="getImageUrl(product)" 
+             [src]="getImageUrl(product)" 
+             [alt]="product.title"
+             (error)="$any($event.target).src='https://via.placeholder.com/240x200?text=No+Image'">
+        <div *ngIf="!getImageUrl(product)" class="no-image">No Image</div>
+      </div>
+      <h3>{{ product.title }}</h3>
+      <p>{{ product.description }}</p>
+      <div class="price">₹{{ product.price }}</div>
+      <button class="btn-outline" (click)="addToCart(product)">Add to cart</button>
+    </div>
+  </div>
+</section>

@@ -2,15 +2,18 @@
   "name": "marketmesh-full",
   "private": true,
   "version": "1.0.0",
-  "description": "MarketMesh full stack (backend + frontend) runner",
+  "description": "MarketMesh full stack (backend + Angular frontend) - MEAN Stack",
   "scripts": {
-    "start": "concurrently -k -n BACKEND,FRONTEND -c green,cyan \"npm --prefix backend start\" \"npm --prefix frontend start\"",
+    "start": "concurrently -k -n BACKEND,ANGULAR -c green,cyan \"npm --prefix backend start\" \"npm --prefix frontend-angular start\"",
     "start:backend": "npm --prefix backend start",
-    "start:frontend": "npm --prefix frontend start",
-    "install:all": "npm --prefix backend install && npm --prefix frontend install",
-    "seed": "npm --prefix backend run seed"
+    "start:frontend": "npm --prefix frontend-angular start",
+    "start:old-frontend": "npm --prefix frontend start",
+    "install:all": "npm --prefix backend install && npm --prefix frontend-angular install",
+    "seed": "npm --prefix backend run seed",
+    "build:frontend": "cd frontend-angular && ng build --configuration=production"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
   }
 }
+

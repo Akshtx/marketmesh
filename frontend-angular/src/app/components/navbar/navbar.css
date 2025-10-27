@@ -1,0 +1,122 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 5%;
+  background: var(--bg-dark);
+  color: var(--text-light);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.logo { 
+  font-size: 1.3rem; 
+  font-weight: 700;
+}
+
+.logo span { 
+  color: var(--accent); 
+}
+
+.nav-links { 
+  display: flex; 
+  align-items: center; 
+  gap: 12px;
+}
+
+.nav-link { 
+  color: var(--text-light); 
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.nav-link:hover, .nav-link.active { 
+  color: var(--accent);
+  background: rgba(255, 122, 0, 0.1);
+}
+
+.offers-nav {
+  cursor: pointer;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.offers-nav:hover {
+  color: var(--accent);
+  background: rgba(255, 122, 0, 0.1);
+}
+
+.offers-text {
+  font-size: 1rem;
+}
+
+.offers-bell {
+  font-size: 1.1rem;
+}
+
+.btn-primary {
+  background: var(--accent); 
+  border: none; 
+  color: white; 
+  padding: 8px 16px; 
+  border-radius: 6px; 
+  cursor: pointer; 
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  background: #e6690a;
+}
+
+.btn-outline { 
+  background: none; 
+  border: 2px solid var(--accent); 
+  padding: 6px 14px; 
+  border-radius: 6px; 
+  cursor: pointer; 
+  color: var(--accent); 
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-outline:hover {
+  background: var(--accent);
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 12px 3%;
+  }
+  
+  .logo {
+    font-size: 1.1rem;
+  }
+  
+  .nav-links {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .nav-link {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+  }
+  
+  .btn-primary, .btn-outline {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+}

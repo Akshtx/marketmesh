@@ -1,0 +1,21 @@
+<app-navbar></app-navbar>
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<app-cart-modal *ngIf="showCartModal" (close)="closeCart()"></app-cart-modal>
+
+<footer class="footer">
+  <div>
+    <h3>MarketMesh</h3>
+    <p>Smart Shopping, Simplified.</p>
+  </div>
+  <div>
+    <h4>Quick Links</h4>
+    <ul>
+      <li><a href="tel:9390067568">Support: 9390067568</a></li>
+      <li><a href="mailto:23eg107d19@anurag.edu.in">Email: 23eg107d19@anurag.edu.in</a></li>
+    </ul>
+  </div>
+</footer>
+

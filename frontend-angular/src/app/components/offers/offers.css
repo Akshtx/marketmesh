@@ -1,0 +1,148 @@
+.page-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 12px;
+  color: var(--text-main);
+}
+
+.page-subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 32px;
+  font-size: 1.1rem;
+}
+
+.offers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.promo-card {
+  background: linear-gradient(135deg, #fff, #f8f9fa);
+  border: 2px solid #e9ecef;
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.promo-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), #ff9933);
+}
+
+.promo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+  border-color: var(--accent);
+}
+
+.promo-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.promo-code {
+  background: linear-gradient(135deg, var(--accent), #ff9933);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  display: inline-block;
+}
+
+.promo-discount {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 1.8rem;
+  margin-left: 12px;
+}
+
+.promo-description {
+  color: #495057;
+  font-size: 1rem;
+  margin: 16px 0;
+  line-height: 1.6;
+  min-height: 48px;
+}
+
+.promo-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #e9ecef;
+}
+
+.promo-expiry {
+  color: #6c757d;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+}
+
+.promo-copy-btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+  font-size: 0.95rem;
+}
+
+.promo-copy-btn:hover {
+  background: #e6690a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 122, 0, 0.3);
+}
+
+.promo-copy-btn.copied {
+  background: #28a745;
+  animation: pulse 0.3s ease-in-out;
+}
+
+.promo-copy-btn.copied:hover {
+  background: #218838;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+  .offers-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .promo-card-footer {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+  
+  .promo-copy-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
