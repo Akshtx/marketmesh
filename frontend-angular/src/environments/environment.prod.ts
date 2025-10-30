@@ -1,6 +1,7 @@
 // This file is for production environment
-// Since backend serves the frontend, use relative API paths
+// For Netlify deployment - update this to your backend URL
+// Options: 'http://localhost:3001/api' (local) or 'https://your-backend.onrender.com/api' (deployed)
 export const environment = {
   production: true,
-  apiUrl: '/api'
+  apiUrl: 'http://localhost:3001/api'
 };

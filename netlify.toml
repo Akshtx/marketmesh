@@ -1,0 +1,9 @@
+[build]
+  base = "frontend-angular"
+  publish = "dist/frontend-angular"
+  command = "npm install && npx ng build --configuration=production"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
