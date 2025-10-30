@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { User, AuthResponse, LoginCredentials, RegisterData } from '../models/user.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Auth {
-  private apiUrl = 'http://localhost:3001/api/auth';
+  private apiUrl = `${environment.apiUrl}/auth`;
   private tokenKey = 'mm_token';
   private userKey = 'mm_user';
 
@@ -76,7 +77,7 @@ export class Auth {
   }
 
   updateUser(updates: Partial<User>): Observable<User> {
-    return this.http.put<User>('http://localhost:3001/api/users/me', updates).pipe(
+    return this.http.put<User>(`${environment.apiUrl}/users/me`, updates).pipe(
       tap(updatedUser => {
         const currentUser = this.currentUserSubject.value;
         if (currentUser) {

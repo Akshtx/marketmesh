@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Promo as PromoModel, PromoValidationResponse } from '../models/promo.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Promo {
-  private apiUrl = 'http://localhost:3001/api/promos';
+  private apiUrl = `${environment.apiUrl}/promos`;
 
   constructor(private http: HttpClient) { }
 
