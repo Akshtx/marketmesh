@@ -12,8 +12,10 @@
     "seed": "npm --prefix backend run seed",
     "build:frontend": "cd frontend-angular && ng build --configuration=production"
   },
-  "devDependencies": {
+  "dependencies": {
     "concurrently": "^8.2.2"
+  },
+  "devDependencies": {
   }
 }
 
