@@ -11,7 +11,7 @@
     "start:old-frontend": "npm --prefix frontend start",
     "install:all": "npm --prefix backend install && npm --prefix frontend-angular install",
     "seed": "npm --prefix backend run seed",
-    "build:frontend": "cd frontend-angular && npm install && ng build --configuration=production",
+    "build:frontend": "cd frontend-angular && npm install && npx ng build --configuration=production",
     "postinstall": "npm --prefix backend install && npm --prefix frontend-angular install"
   },
   "dependencies": {
