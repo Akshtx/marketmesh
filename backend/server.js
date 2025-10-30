@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const path = require('path');
 dotenv.config();
 const app = express();
 
@@ -48,7 +49,18 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/promos', promoRoutes);
 
-app.get('/', (req,res)=> res.json({ ok: true, msg: 'MarketMesh API', endpoints: { auth: '/api/auth', products: '/api/products', orders: '/api/orders' } }));
+// Serve Angular static files in production
+if (process.env.NODE_ENV === 'production') {
+  const angularDistPath = path.join(__dirname, '../frontend-angular/dist/frontend-angular');
+  app.use(express.static(angularDistPath));
+  
+  // Handle Angular routing - return index.html for all non-API routes
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(angularDistPath, 'index.html'));
+  });
+} else {
+  app.get('/', (req,res)=> res.json({ ok: true, msg: 'MarketMesh API', endpoints: { auth: '/api/auth', products: '/api/products', orders: '/api/orders' } }));
+}
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, ()=> {
