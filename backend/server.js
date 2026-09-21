@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const path = require('path');
 dotenv.config();
 const app = express();
 
@@ -24,7 +23,11 @@ app.use(cors({
 app.use(express.json());
 
 // MongoDB connection with better error handling
-const MONGO = process.env.MONGO_URI || 'mongodb://localhost:27017/marketmesh';
+const MONGO = process.env.MONGO_URI;
+if (!MONGO) {
+  console.error('❌ MONGO_URI is required. Add it to the Render backend environment variables.');
+  process.exit(1);
+}
 console.log('Connecting to MongoDB...');
 mongoose.connect(MONGO)
   .then(() => {
@@ -49,18 +52,11 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/promos', promoRoutes);
 
-// Serve Angular static files in production
-if (process.env.NODE_ENV === 'production') {
-  const angularDistPath = path.join(__dirname, '../frontend-angular/dist/frontend-angular');
-  app.use(express.static(angularDistPath));
-  
-  // Handle Angular routing - return index.html for all non-API routes
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(angularDistPath, 'index.html'));
-  });
-} else {
-  app.get('/', (req,res)=> res.json({ ok: true, msg: 'MarketMesh API', endpoints: { auth: '/api/auth', products: '/api/products', orders: '/api/orders' } }));
-}
+app.get('/', (req, res) => res.json({
+  ok: true,
+  msg: 'MarketMesh API',
+  endpoints: { auth: '/api/auth', products: '/api/products', orders: '/api/orders' }
+}));
 
 const PORT = process.env.PORT || 3001;
 const HOST = '0.0.0.0'; // Bind to all network interfaces for Render
