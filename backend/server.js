@@ -9,6 +9,7 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:4200',
   'http://localhost:3001',
+  'https://marketmesh-1.onrender.com',
   process.env.FRONTEND_URL // Will be set in Render environment variables
 ].filter(Boolean);
 
