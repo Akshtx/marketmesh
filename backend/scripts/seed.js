@@ -6,7 +6,10 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 
 async function run(){
-  const MONGO = process.env.MONGO_URI || 'mongodb://localhost:27017/marketmesh';
+  const MONGO = process.env.MONGO_URI;
+  if (!MONGO) {
+    throw new Error('MONGO_URI is required to seed the database.');
+  }
   await mongoose.connect(MONGO);
   console.log('Connected for seed');
   await Product.deleteMany({});

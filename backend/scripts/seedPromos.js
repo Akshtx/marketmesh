@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 const PromoCode = require('../models/PromoCode');
 require('dotenv').config();
 
-const MONGO = process.env.MONGO_URI || 'mongodb://localhost:27017/marketmesh';
+const MONGO = process.env.MONGO_URI;
+if (!MONGO) {
+  throw new Error('MONGO_URI is required to seed promo codes.');
+}
 
 const promos = [
   {
