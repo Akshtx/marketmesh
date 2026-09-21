@@ -16,6 +16,8 @@ services:
         generateValue: true
       - key: PORT
         value: 10000
+      - key: FRONTEND_URL
+        value: https://marketmesh-1.onrender.com
     healthCheckPath: /
 
   # Frontend Static Site
